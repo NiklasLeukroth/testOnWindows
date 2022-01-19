@@ -9,6 +9,7 @@ enum FoundFlag {
 
 const SUCCESS_EXIT_CODE : i32 = 0;
 const FAILURE_EXIT_CODE : i32 = 1;
+const SOMETHING_HAPPENED_EXIT_CODE : i32 = 2;
 
 fn main() {
     let mut args: Vec<String> = env::args().collect();
@@ -24,7 +25,7 @@ fn main() {
     };
     if matches.opt_present("h") {
         print_usage(&program, opts);
-        return;
+        std::process::exit(SOMETHING_HAPPENED_EXIT_CODE);
     }
 
     let flags = if matches.opt_present("e") {
@@ -33,7 +34,7 @@ fn main() {
         FoundFlag::Directory
     } else {
         eprintln!("Use either -d or -e!");
-        return;
+        std::process::exit(SOMETHING_HAPPENED_EXIT_CODE);
     };
 
     match matches.free.pop() {
