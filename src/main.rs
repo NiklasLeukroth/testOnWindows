@@ -12,7 +12,7 @@ const FAILURE_EXIT_CODE : i32 = 1;
 
 fn main() {
     let mut args: Vec<String> = env::args().collect();
-    let program = args.pop().unwrap();
+    let program = args.remove(0);
 
     let mut opts = Options::new();
     opts.optflag("h", "help", "print this help menu");
